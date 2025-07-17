@@ -1,0 +1,21 @@
+﻿@model QLKS_WebMVC.Models.KhachHang
+@{
+    ViewData["Title"] = "Chi tiết khách hàng";
+}
+<div class="container mt-4" style="font-family: 'Segoe UI', sans-serif">
+    <h2 class="text-info mb-4">🔍 Thông tin khách hàng</h2>
+    <div class="card border-info shadow">
+        <div class="card-body">
+            <h5 class="card-title">👤 @Model.HoTen</h5>
+            <p class="card-text">
+                <strong>SĐT:</strong> @Model.SDT <br />
+                <strong>CCCD:</strong> @Model.CCCD <br />
+                <strong>Địa chỉ:</strong> @Model.DiaChi
+            </p>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Edit" asp-route-id="@Model.MaKH" class="btn btn-warning">✏ Sửa</a>
+            <a asp-action="Index" class="btn btn-secondary">↩ Quay lại</a>
+        </div>
+    </div>
+</div>

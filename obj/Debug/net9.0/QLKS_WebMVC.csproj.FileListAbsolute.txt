@@ -1,0 +1,8 @@
+D:\.DiHoc\.NET\QLKS_WebMVC\QLKS_WebMVC\obj\Debug\net9.0\QLKS_WebMVC.csproj.AssemblyReference.cache
+D:\.DiHoc\.NET\QLKS_WebMVC\QLKS_WebMVC\obj\Debug\net9.0\QLKS_WebMVC.GeneratedMSBuildEditorConfig.editorconfig
+D:\.DiHoc\.NET\QLKS_WebMVC\QLKS_WebMVC\obj\Debug\net9.0\QLKS_WebMVC.AssemblyInfoInputs.cache
+D:\.DiHoc\.NET\QLKS_WebMVC\QLKS_WebMVC\obj\Debug\net9.0\QLKS_WebMVC.AssemblyInfo.cs
+D:\.DiHoc\.NET\QLKS_WebMVC\QLKS_WebMVC\obj\Debug\net9.0\QLKS_WebMVC.csproj.CoreCompileInputs.cache
+D:\.DiHoc\.NET\QLKS_WebMVC\QLKS_WebMVC\obj\Debug\net9.0\QLKS_WebMVC.MvcApplicationPartsAssemblyInfo.cache
+D:\.DiHoc\.NET\QLKS_WebMVC\QLKS_WebMVC\obj\Debug\net9.0\QLKS_WebMVC.RazorAssemblyInfo.cache
+D:\.DiHoc\.NET\QLKS_WebMVC\QLKS_WebMVC\obj\Debug\net9.0\QLKS_WebMVC.RazorAssemblyInfo.cs
