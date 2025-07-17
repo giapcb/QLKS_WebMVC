@@ -1,0 +1,36 @@
+﻿@model QLKS_WebMVC.Models.DatPhong
+@{
+    ViewData["Title"] = "Chỉnh sửa đặt phòng";
+}
+<div class="container mt-4" style="font-family: 'Segoe UI', sans-serif">
+    <h2 class="text-warning mb-4">✏ Chỉnh sửa đơn đặt phòng</h2>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="MaDat" />
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Khách hàng</label>
+                <select asp-for="MaKH" class="form-select" asp-items="ViewBag.MaKH"></select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Phòng</label>
+                <select asp-for="MaPhong" class="form-select" asp-items="ViewBag.MaPhong"></select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label class="form-label">Ngày nhận</label>
+                <input asp-for="NgayNhan" class="form-control" type="date" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Ngày trả</label>
+                <input asp-for="NgayTra" class="form-control" type="date" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Trạng thái</label>
+            <input asp-for="TrangThai" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-success">💾 Cập nhật</button>
+        <a asp-action="Index" class="btn btn-secondary">↩ Quay lại</a>
+    </form>
+</div>

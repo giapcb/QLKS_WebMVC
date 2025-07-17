@@ -1,0 +1,15 @@
+﻿@model QLKS_WebMVC.Models.KhachHang
+@{
+    ViewData["Title"] = "Xoá khách hàng";
+}
+<div class="container mt-4" style="font-family: 'Segoe UI', sans-serif">
+    <h2 class="text-danger mb-4">🗑 Xác nhận xoá khách hàng</h2>
+    <div class="alert alert-danger">
+        Bạn có chắc chắn muốn xoá khách hàng <strong>@Model.HoTen</strong> không?
+    </div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaKH" />
+        <button type="submit" class="btn btn-danger">Xoá</button>
+        <a asp-action="Index" class="btn btn-secondary">Huỷ</a>
+    </form>
+</div>
