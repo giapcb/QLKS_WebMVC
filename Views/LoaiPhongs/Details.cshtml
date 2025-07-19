@@ -1,0 +1,78 @@
+﻿@model QLKS_WebMVC.Models.LoaiPhong
+@{
+    ViewData["Title"] = "Chi tiết loại phòng";
+    var danhSachAnh = Model.HinhAnh?.Split(';', StringSplitOptions.RemoveEmptyEntries) ?? new string[0];
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container my-5">
+    <h2 class="fw-bold mb-4">@Model.TenLoai</h2>
+
+    <div class="row">
+        <!-- Ảnh carousel + gallery -->
+        <div class="col-md-6">
+            @if (danhSachAnh.Length > 0)
+            {
+                <div id="carouselAnhPhong" class="carousel slide mb-3" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @for (int i = 0; i < danhSachAnh.Length; i++)
+                        {
+                            var active = i == 0 ? "active" : "";
+                            <div class="carousel-item @active">
+                                <img src="~/images/@danhSachAnh[i].Trim()" class="d-block w-100 rounded" style="height:300px; object-fit:cover;" alt="Ảnh @i">
+                            </div>
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselAnhPhong" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                        <span class="visually-hidden">Trước</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselAnhPhong" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                        <span class="visually-hidden">Sau</span>
+                    </button>
+                </div>
+
+                <!-- Thư viện ảnh nhỏ -->
+                <div class="d-flex flex-wrap gap-2">
+                    @foreach (var img in danhSachAnh)
+                    {
+                        <img src="~/images/@img.Trim()" style="width: 80px; height: 60px; object-fit: cover;" class="rounded border" />
+                    }
+                </div>
+            }
+            else
+            {
+                <img src="~/images/noimage.jpg" class="img-fluid rounded shadow-sm" alt="Không có ảnh" />
+            }
+        </div>
+
+        <!-- Thông tin mô tả -->
+        <div class="col-md-6">
+            <h4 class="text-secondary">Thông tin phòng</h4>
+
+            <p><strong>Giá:</strong> <span class="text-danger fs-5">@Model.GiaPhong.ToString("N0") VNĐ / đêm</span></p>
+
+            @if (!string.IsNullOrEmpty(Model.MoTa))
+            {
+                <div class="mb-3" style="white-space: pre-line;">
+                    @Html.Raw(Model.MoTa.Replace("\n", "<br>"))
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">Không có mô tả chi tiết.</p>
+            }
+
+            <div class="mt-4">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary me-2">✏️ Chỉnh sửa</a>
+                <a asp-action="Index" class="btn btn-secondary">↩️ Quay lại</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+}

@@ -1,0 +1,101 @@
+﻿@model QLKS_WebMVC.Models.Phong
+
+@{
+    ViewData["Title"] = "Chi tiết phòng";
+    var danhSachAnh = Model.LoaiPhong?.HinhAnh?.Split(';', StringSplitOptions.RemoveEmptyEntries)
+                      ?.Select(a => Url.Content("~/images/" + a.Trim())).ToList() ?? new List<string>();
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Ảnh đại diện + Carousel -->
+        <div class="col-lg-6 mb-4">
+            @if (danhSachAnh.Count > 1)
+            {
+                <div id="carouselPhong" class="carousel slide mb-3" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @for (int i = 0; i < danhSachAnh.Count; i++)
+                        {
+                            var active = i == 0 ? "active" : "";
+                            <div class="carousel-item @active">
+                                <img src="@danhSachAnh[i]" class="d-block w-100 rounded" style="max-height: 350px; object-fit: cover;" />
+                            </div>
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselPhong" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselPhong" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+
+                <!-- Thumbnails -->
+                <div class="d-flex gap-2 overflow-auto">
+                    @foreach (var img in danhSachAnh)
+                    {
+                        <img src="@img" class="rounded border" style="height: 60px; width: 90px; object-fit: cover;" />
+                    }
+                </div>
+            }
+            else if (danhSachAnh.Count == 1)
+            {
+                <img src="@danhSachAnh[0]" class="img-fluid rounded shadow" alt="Ảnh phòng" />
+            }
+            else
+            {
+                <img src="~/images/noimage.jpg" class="img-fluid rounded shadow" alt="Không có ảnh" />
+            }
+        </div>
+
+        <!-- Thông tin phòng -->
+        <div class="col-lg-6">
+            <h2 class="text-primary">@Model.TenPhong</h2>
+
+            <p>
+                <span class="badge bg-@GetBadge(Model.TrangThai) fs-6">@Model.TrangThai</span>
+            </p>
+
+            <h4 class="text-danger fw-bold">
+                @Model.LoaiPhong?.GiaPhong.ToString("N0") VNĐ / đêm
+            </h4>
+
+            <p><strong>Loại phòng:</strong> @Model.LoaiPhong?.TenLoai</p>
+
+            <hr />
+            <h5 class="fw-bold">Mô tả chi tiết</h5>
+            @if (!string.IsNullOrEmpty(Model.LoaiPhong?.MoTa))
+            {
+                <div class="small" style="white-space: pre-line;">
+                    @Html.Raw(Model.LoaiPhong.MoTa.Replace("\n", "<br>"))
+                </div>
+            }
+            else
+            {
+                <p class="text-muted fst-italic">Không có mô tả</p>
+            }
+
+            <div class="mt-4">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary me-2">✏️ Chỉnh sửa</a>
+                <a asp-action="Index" class="btn btn-secondary">↩️ Quay lại danh sách</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+}
+
+@functions {
+    string GetBadge(string status) => status switch
+    {
+        "Trống" => "success",
+        "Đặt" => "warning",
+        "Sử dụng" => "danger",
+        "Bảo trì" => "secondary",
+        _ => "light"
+    };
+}

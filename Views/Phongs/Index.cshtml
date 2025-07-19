@@ -1,0 +1,95 @@
+﻿@model IEnumerable<QLKS_WebMVC.Models.Phong>
+@{
+    ViewData["Title"] = "Danh sách phòng";
+}
+
+<h2 class="mb-4">Danh sách phòng</h2>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <label class="form-label">Loại phòng</label>
+        <select name="loaiId" class="form-select" asp-items="ViewBag.LoaiPhongs">
+            <option value="">-- Tất cả --</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Trạng thái</label>
+        <select name="trangThai" class="form-select" asp-items="ViewBag.TrangThais">
+            <option value="">-- Tất cả --</option>
+        </select>
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary">🔍 Lọc</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">🔄 Đặt lại</a>
+        <a asp-action="Create" class="btn btn-success ms-2">➕ Thêm phòng</a>
+    </div>
+</form>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 border-@GetColor(item.TrangThai)">
+                @{
+                    var hinhAnhs = (item.LoaiPhong?.HinhAnh ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()).ToList();
+                }
+                <div class="d-flex justify-content-center gap-2 mt-2">
+                    @if (hinhAnhs.Count > 0)
+                    {
+                        <img src="~/images/@hinhAnhs[0]" alt="Ảnh 1" style="height:100px;width:100px;object-fit:cover;border-radius:8px;" />
+                        if (hinhAnhs.Count > 1)
+                        {
+                            <img src="~/images/@hinhAnhs[1]" alt="Ảnh 2" style="height:100px;width:100px;object-fit:cover;border-radius:8px;" />
+                        }
+                    }
+                    else
+                    {
+                        <img src="~/images/noimage.jpg" alt="Không có ảnh" style="height:100px;width:100px;object-fit:cover;border-radius:8px;" />
+                    }
+                </div>
+
+
+                <div class="card-body">
+                    <h5 class="card-title">@item.TenPhong</h5>
+                    <p>
+                        <strong>Loại:</strong> @item.LoaiPhong?.TenLoai<br />
+                        <strong>Giá:</strong> @item.LoaiPhong?.GiaPhong.ToString("N0") VNĐ<br />
+                        <strong>Trạng thái:</strong>
+                        <span class="badge bg-@GetBadge(item.TrangThai)">@item.TrangThai</span>
+                    </p>
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">Sửa</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Chi tiết</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Xoá</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@functions {
+    string GetBadge(string status)
+    {
+        return status switch
+        {
+            "Trống" => "success",
+            "Đặt" => "warning",
+            "Sử dụng" => "info",
+            "Bảo trì" => "secondary",
+            _ => "light"
+        };
+    }
+
+    string GetColor(string status)
+    {
+        return status switch
+        {
+            "Trống" => "success",
+            "Đặt" => "warning",
+            "Sử dụng" => "info",
+            "Bảo trì" => "secondary",
+            _ => "light"
+        };
+    }
+}

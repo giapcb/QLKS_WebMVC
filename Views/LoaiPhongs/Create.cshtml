@@ -1,0 +1,56 @@
+﻿@model QLKS_WebMVC.Models.LoaiPhong
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>LoaiPhong</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <!-- CHÚ Ý: thêm enctype -->
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="TenLoai" class="control-label"></label>
+                <input asp-for="TenLoai" class="form-control" />
+                <span asp-validation-for="TenLoai" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="GiaPhong" class="control-label"></label>
+                <input asp-for="GiaPhong" class="form-control" type="number" step="1000" min="0" />
+                <span asp-validation-for="GiaPhong" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="MoTa" class="control-label"></label>
+                <textarea asp-for="MoTa" class="form-control" rows="6" placeholder="Nhập mô tả chi tiết từng đặc điểm, mỗi dòng 1 mục..."></textarea>
+
+                <span asp-validation-for="MoTa" class="text-danger"></span>
+            </div>
+
+            <!-- Thêm input cho ảnh -->
+            <!-- CHỌN NHIỀU ẢNH -->
+            <div class="form-group mb-3">
+                <label class="control-label">Chọn nhiều ảnh</label>
+                <input type="file" name="images" class="form-control" multiple />
+            </div>
+
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary ms-2">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
